@@ -1,0 +1,191 @@
+#VRML_SIM V6.0 utf8
+WorldInfo {
+  info [
+    "Description"
+    "Author: first name last name <e-mail>"
+    "Date: DD MMM YYYY"
+  ]
+}
+Viewpoint {
+  orientation -1 0 0 1.5708
+  position 0 3 0
+}
+Background {
+  skyColor [
+    0.4 0.7 1
+  ]
+}
+DirectionalLight {
+  direction 0 -1 0
+}
+EPuck {
+  translation -0.595708 -6.39509e-05 0.292608
+  rotation -0.000758301 0.999999 -0.000656973 -1.41874
+  controller "swarm_controller"
+}
+EPuck {
+  translation 0.667099 -6.39511e-05 -0.524559
+  rotation 0.00200428 0.999998 0.000639933 -0.627277
+  controller "swarm_controller"
+}
+EPuck {
+  translation -0.256054 -6.3951e-05 0.678191
+  rotation 0.000204381 1 -0.000649828 2.5413
+  controller "swarm_controller"
+}
+EPuck {
+  translation -0.529618 -6.39775e-05 -0.454957
+  rotation -0.000134223 1 4.53673e-05 0.432292
+  controller "swarm_controller"
+}
+EPuck {
+  translation 0.0885968 -6.3951e-05 -0.673553
+  rotation -0.00222033 0.999997 -0.000661573 -0.570035
+  controller "swarm_controller"
+}
+EPuck {
+  translation 0.393761 -6.39511e-05 -0.0419309
+  rotation -0.000415035 1 0.000651165 1.99753
+  controller "swarm_controller"
+}
+EPuck {
+  translation 0.501724 -6.39509e-05 0.597864
+  rotation -0.000310093 1 -0.000652595 -2.24528
+  controller "swarm_controller"
+}
+DEF WALL-1 Solid {
+  translation 0 0.1 0.75
+  children [
+    DEF WALL-SHAPE Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 1 0.215686 0.156863
+        }
+      }
+      geometry Box {
+        size 1.5 0.2 0.01
+      }
+    }
+  ]
+  boundingObject Group {
+    children [
+      USE WALL-SHAPE
+    ]
+  }
+}
+DEF WALL-2 Solid {
+  translation 0 0.1 -0.75
+  children [
+    DEF WALL-SHAPE Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 1 0.215686 0.156863
+        }
+      }
+      geometry Box {
+        size 1.5 0.2 0.01
+      }
+    }
+  ]
+  boundingObject Group {
+    children [
+      USE WALL-SHAPE
+    ]
+  }
+}
+DEF WALL-3 Solid {
+  translation 0.75 0.1 0
+  rotation 0 1 0 1.5708
+  children [
+    DEF WALL-SHAPE Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 1 0.215686 0.156863
+        }
+      }
+      geometry Box {
+        size 1.5 0.2 0.01
+      }
+    }
+  ]
+  boundingObject Group {
+    children [
+      USE WALL-SHAPE
+    ]
+  }
+}
+DEF WALL-4 Solid {
+  translation -0.75 0.1 0
+  rotation 0 1 0 1.5708
+  children [
+    DEF WALL-SHAPE Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 1 0.215686 0.156863
+        }
+      }
+      geometry Box {
+        size 1.5 0.2 0.01
+      }
+    }
+  ]
+  boundingObject Group {
+    children [
+      USE WALL-SHAPE
+    ]
+  }
+}
+DEF FLOOR Solid {
+  translation 0 -0.005 0
+  children [
+    DEF FLOOR-SHAPE Shape {
+      appearance Appearance {
+        texture ImageTexture {
+          url [
+            "textures/grid.png"
+          ]
+        }
+        textureTransform TextureTransform {
+          scale 5 5
+        }
+      }
+      geometry Box {
+        size 1.5 0.01 1.5
+      }
+    }
+  ]
+  boundingObject Group {
+    children [
+      USE FLOOR-SHAPE
+    ]
+  }
+}
+DEF FOOD Solid {
+  translation -1.41565e-18 0.0998628 1.37417e-18
+  rotation -0.183589 0.351666 -0.917947 -3.31739e-17
+  children [
+    PointLight {
+      color 1 0 0
+      intensity 0.275
+      location 0 -0.075 0
+      radius 0.01
+      castShadows TRUE
+    }
+    DEF FOOD-SHAPE Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 1 0 0
+          emissiveColor 1 0 0
+        }
+      }
+      geometry Box {
+        size 0.2 0.2 0.2
+      }
+    }
+  ]
+  boundingObject USE FOOD-SHAPE
+  physics Physics {
+    density -1
+    mass 0.35
+  }
+}
