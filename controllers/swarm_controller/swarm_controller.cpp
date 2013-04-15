@@ -8,6 +8,7 @@
 // <webots/DistanceSensor.hpp>, <webots/LED.hpp>, etc.
 // and/or to add some other includes
 #include <webots/Robot.hpp>
+#include <retrieval.h>
 
 // All the webots classes are defined in the "webots" namespace
 using namespace webots;
