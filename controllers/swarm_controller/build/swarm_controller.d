@@ -6,4 +6,4 @@ swarm_controller.o: swarm_controller.c \
   /Applications/Webots/include/controller/c/webots/distance_sensor.h \
   /Applications/Webots/include/controller/c/webots/light_sensor.h \
   /Applications/Webots/include/controller/c/webots/led.h search.c \
-  retrieval.c stagnation.c search.h
+  retrieval.c search.h stagnation.c
