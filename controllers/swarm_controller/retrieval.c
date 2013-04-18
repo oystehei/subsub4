@@ -12,7 +12,8 @@
 #define OFF 0
 #define TRUE 1
 #define FALSE 0
-#define PUSH_THRESHOLD 500
+#define PUSH_THRESHOLD_LIGHT 2300
+#define PUSH_THRESHOLD_PROXIMITY 2000
 
 /* Wheel speed variables */
 static double left_wheel_speed;
@@ -34,6 +35,7 @@ int push = FALSE; // Standing close to the box
 
 static void update_speed(int IR_number)
 {
+	
 	if (IR_number==0)
 		left_wheel_speed = left_wheel_speed + 700;
 	else if(IR_number == 7)
@@ -59,7 +61,7 @@ static void update_speed(int IR_number)
         right_wheel_speed = right_wheel_speed + 500;
 }
 /* The movement for converging to the box */
-static void converge_to_box(int IR_sensor_value[8], int IR_threshold)
+static void converge_to_box(double IR_sensor_value[8], int IR_threshold)
 {
 	left_wheel_speed = 0;
 	right_wheel_speed = 0;
@@ -74,7 +76,7 @@ static void converge_to_box(int IR_sensor_value[8], int IR_threshold)
 	}
 }
 /* The behavior when pushing the box */
-static void push_box(int IR_sensor_value[8], int IR_threshold)
+static void push_box(double IR_sensor_value[8], int IR_threshold)
 {
 	left_wheel_speed = 0;
 	right_wheel_speed = 0;
@@ -96,12 +98,12 @@ static void push_box(int IR_sensor_value[8], int IR_threshold)
 }
 
 /* Selects the behavior push or converge */
-static void select_behavior(int IR_sensor_value[8])
+static void select_behavior(double IR_sensor_value[8], double ps_sensor_value[8])
 {
 	push = FALSE;
 	converge = TRUE;
 	for(i=0;i<NB_LEDS;i++){
-		if (IR_sensor_value[i] < PUSH_THRESHOLD){
+		if (IR_sensor_value[i] < PUSH_THRESHOLD_LIGHT && ps_sensor_value[i] > PUSH_THRESHOLD_PROXIMITY){
 			push = TRUE;
 			break;
 		}
@@ -112,9 +114,9 @@ static void select_behavior(int IR_sensor_value[8])
 *******************************/
 
 /* Converge, push, and stagnation recovery */
-void swarm_retrieval(int IR_sensor_value[8], int IR_threshold)
+void swarm_retrieval(double IR_sensor_value[8], double ps_sensor_value[8], int IR_threshold)
 {
-	select_behavior(IR_sensor_value);
+	select_behavior(IR_sensor_value, ps_sensor_value);
 	if(push)
 		push_box(IR_sensor_value, IR_threshold);
 	else // converge
@@ -137,4 +139,10 @@ double get_retrieval_right_wheel_speed()
 int get_LED_state(int LED_num)
 {
 	return LED[LED_num];
+}
+
+/* Returns whether the e-puck is currently pushing or not */
+int is_pushing()
+{
+  return push;
 }

@@ -17,7 +17,7 @@
 #define ON 1
 #define OFF 0
 #define IR_DIFF_THRESHOLD 4
-#define DISTANCE_DIFF_THRESHOLD 10
+#define DISTANCE_DIFF_THRESHOLD 50
 #define REVERSE_LIMIT 20
 #define TURN_LIMIT 10
 #define FORWARD_LIMIT 40
@@ -187,7 +187,7 @@ void reset_stagnation()
 }
 void stagnation_recovery(double distance_sensors_value[8], int DIST_THRESHOLD)
 {
-	if (align_counter < 2) // Align
+	if (align_counter < 1) // Align
 	{
 		align_counter = align_counter + 1;
 		realign(distance_sensors_value);
@@ -205,6 +205,8 @@ void stagnation_recovery(double distance_sensors_value[8], int DIST_THRESHOLD)
 void valuate_pushing(double dist_value[8], double prev_dist_value[8])
 {	// Only assess this situation once
 	// The front IR sensors pushing against the box
+	
+	
 	int dist_diff7 = prev_dist_value[7] - dist_value[7];
 	int dist_diff0 = prev_dist_value[0] - dist_value[0];
 
